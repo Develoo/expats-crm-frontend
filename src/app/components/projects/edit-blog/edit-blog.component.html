@@ -1,0 +1,238 @@
+<div style="background-color: #eff5f9">
+    <div
+        style="
+            max-width: 1200px;
+            margin: auto;
+            background-color: #eff5f9;
+            height: 50px;
+        "
+    ></div>
+</div>
+
+<div class="row omar">
+    <div class="col-lg-3 mb-25 tagus-card"></div>
+    <div class="col-lg-9 mb-25 tagus-card">
+        <mat-card class="card2">
+            <!-- Formulaire pour l'édition du blog -->
+            <form [formGroup]="editForm" (ngSubmit)="onUpdate()" novalidate>
+                <h5 id="targetRed">Modifier un blog</h5>
+                <div class="bg-card">
+                    <!-- Champ pour le titre -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Titre</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <input
+                                        matInput
+                                        formControlName="title"
+                                        type="text"
+                                        required
+                                    />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Champ pour le contenu -->
+                    <div class="tagus-form-group mb-20">
+                        <quill-editor
+                            [styles]="{ height: '250px' }"
+                            formControlName="content"
+                            (onFocus)="focus($event)"
+                            (onEditorChanged)="changedEditor($event)"
+                            (onBlur)="blur($event)"
+                            (onEditorCreated)="onEditorCreated($event)"
+                        ></quill-editor>
+                    </div>
+
+                    <!-- Sélection du pays -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Pays</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select
+                                        [formControlName]="'pays'"
+                                        name="pays"
+                                    >
+                                        <mat-option value="tunis"
+                                            >Tunis</mat-option
+                                        >
+                                        <mat-option value="france"
+                                            >France</mat-option
+                                        >
+                                        <mat-option value="italie"
+                                            >Italie</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sélection de la catégorie -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Catégorie</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select
+                                        formControlName="blogCategorieId"
+                                    >
+                                        <mat-option value="1">Lire </mat-option>
+                                        <mat-option value="2"
+                                            >Ecouter</mat-option
+                                        >
+                                        <mat-option value="3"
+                                            >Regarder</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Sous-catégories</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <!-- Sélection multiple pour les sous-catégories -->
+                                    <mat-select
+                                        formControlName="blogScategorieIds"
+                                        multiple
+                                    >
+                                        <mat-option
+                                            *ngFor="
+                                                let scategorie of blogScategories
+                                            "
+                                            [value]="scategorie.id"
+                                        >
+                                            {{ scategorie.nom }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section pour les tags -->
+                    <div formArrayName="tags">
+                        <div *ngFor="let tag of tags.controls; let i = index">
+                            <div [formGroupName]="i" class="form-group">
+                                <label for="tag">Tag {{ i + 1 }}</label>
+                                <input
+                                    type="text"
+                                    formControlName="nom"
+                                    class="form-control"
+                                    placeholder="Tag"
+                                />
+                                <!-- Bouton pour supprimer un tag -->
+                                <div class="storage-status">
+                                    <a
+                                        class="muted-color d-block pointer-cursor"
+                                        style="
+                                            color: #007fff !important;
+                                            margin-left: 191px;
+                                        "
+                                        (click)="removeTag(i)"
+                                    >
+                                        - Supprimer
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bouton pour ajouter un autre tag -->
+                        <div class="storage-status">
+                            <a
+                                class="muted-color d-block pointer-cursor"
+                                style="
+                                    color: #007fff !important;
+                                    margin-left: 191px;
+                                "
+                                (click)="addTag()"
+                            >
+                                + Ajouter un autre tag
+                            </a>
+                        </div>
+                    </div>
+
+                    <!--<div>
+                        <label for="blogScategorieIds">Sous-catégories</label>
+                        <select
+                            id="blogScategorieIds"
+                            formControlName="blogScategorieIds"
+                            multiple
+                        >
+                            <option
+                                *ngFor="let scategorie of blogScategories"
+                                [value]="scategorie.id"
+                            >
+                                {{ scategorie.name }}
+                            </option>
+                        </select>
+                    </div>-->
+
+                    <!--<div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Catégorie</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select
+                                        formControlName="blogScategorieIds"
+                                    >
+                                        <mat-option value="1"
+                                            >Guides pratiques
+                                        </mat-option>
+                                        <mat-option value="2"
+                                            >Démarches
+                                            administratives</mat-option
+                                        >
+                                        <mat-option value="3"
+                                            >Retour d'expatriation</mat-option
+                                        >
+                                        <mat-option value="4"
+                                            >Première expatriation</mat-option
+                                        >
+                                        <mat-option value="5"
+                                            >En cas d'urgence</mat-option
+                                        >
+                                        <mat-option value="6"
+                                            >La santé dans le monde</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <!-- Champ pour le téléchargement de fichiers (image) -->
+                    <!-- <div class="form-group">
+                        <label>Charger une nouvelle image (optionnel)</label>
+                        <input
+                            class="form-control"
+                            type="file"
+                            (change)="selectFiles($event)"
+                            accept="image/*"
+                        />
+                    </div>-->
+                </div>
+
+                <!-- Bouton pour soumettre la mise à jour -->
+                <button mat-raised-button type="submit">Mettre à jour</button>
+            </form>
+        </mat-card>
+    </div>
+</div>

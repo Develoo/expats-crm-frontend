@@ -1,0 +1,212 @@
+<div style="background-color: #eff5f9; margin-top: 50px">
+    <div
+        style="
+            max-width: 1200px;
+            margin: auto;
+            background-color: #eff5f9;
+            height: 50px;
+            margin-left: 100px;
+        "
+    >
+        <button
+            mat-raised-button
+            class="small-button"
+            type="button"
+            routerLink="/listnumurgence"
+            style="color: white"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+            >
+                <path
+                    d="M20.25 12H3.75"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+                <path
+                    d="M10.5 5.25L3.75 12L10.5 18.75"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
+        </button>
+
+        <!--        <h2>Ajout Utilisateur</h2>-->
+    </div>
+</div>
+
+<div class="row omar">
+    <div class="col-lg-3 mb-25 tagus-card"></div>
+    <div class="col-lg-9 mb-25 tagus-card">
+        <mat-card class="card2">
+            <!-- <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+                <h5 id="targetRed">Informations du compte</h5>
+                <div class="bg-card">
+                    <div
+                        class="row align-items-center"
+                        *ngFor="let field of accountFields"
+                    >
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>{{ field.label }}</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <input
+                                        matInput
+                                        [formControlName]="field.name"
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Catégorie</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select [formControlName]="'categorie'">
+                                        <mat-option
+                                            value="Ambassades et consulats"
+                                            >Ambassades et consulats</mat-option
+                                        >
+                                        <mat-option value="Assistance médicale"
+                                            >Assistance médicale</mat-option
+                                        >
+                                        <mat-option value="Assistance routière"
+                                            >Assistance routière</mat-option
+                                        >
+                                        <mat-option value="Police secours"
+                                            >Police secours</mat-option
+                                        >
+                                        <mat-option value="Rapatriement"
+                                            >Rapatriement</mat-option
+                                        >
+                                        <mat-option value="Autre"
+                                            >Autre</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Pays</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select [formControlName]="'pays'">
+                                        <mat-option value="italie"
+                                            >italie</mat-option
+                                        >
+                                        <mat-option value="France"
+                                            >France</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>File Upload</label>
+                        <input
+                            class="form-control"
+                            type="file"
+                            (change)="selectFiles($event)"
+                            multiple
+                            required
+                        />
+                    </div>
+                </div>
+
+                <button mat-raised-button type="submit">Submit</button>
+            </form>-->
+
+            <form
+                name="form"
+                (ngSubmit)="f.form.valid && onSubmit()"
+                #f="ngForm"
+                novalidate
+            >
+                <div class="part">
+                    <span class="title-add-produit"
+                        >Image du produit/service</span
+                    >
+                    <div class="file-upload">
+                        <input
+                            type="file"
+                            (change)="selectFiles($event)"
+                            id="file"
+                            name="image"
+                            class="form-control"
+                        />
+
+                        <div *ngIf="filename">
+                            <p>Fichier sélectionné : {{ filename }}</p>
+                            <!-- Affiche le nom du fichier -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="part">
+                    <span class="title-add-produit"
+                        >Nom du produit/service</span
+                    >
+                    <input
+                        type="text"
+                        placeholder="Nom du produit/service"
+                        [(ngModel)]="numurgence.titre"
+                        name="nom"
+                        class="form-control ng-pristine ng-valid ng-touched ng-star-inserted"
+                    />
+                </div>
+                <div class="part">
+                    <span class="title-add-produit">Description détaillée</span>
+                    <textarea
+                        type="text"
+                        placeholder="Description détaillée"
+                        [(ngModel)]="numurgence.description"
+                        name="description"
+                        class="form-control ng-pristine ng-valid ng-touched ng-star-inserted"
+                    >
+                    </textarea>
+                </div>
+                <div class="part">
+                    <span class="title-add-produit">Prix</span>
+                    <input
+                        type="text"
+                        placeholder="Prix"
+                        [(ngModel)]="numurgence.num"
+                        name="prix"
+                        class="form-control ng-pristine ng-valid ng-touched ng-star-inserted"
+                    />
+                </div>
+
+                <div class="editMode row ng-star-inserted">
+                    <button
+                        class="btn btn-next col-lg-3 col-md-3"
+                        type="submit"
+                    >
+                        Enregistrer
+                    </button>
+                </div>
+            </form>
+        </mat-card>
+    </div>
+</div>

@@ -1,0 +1,162 @@
+<div style="background-color: #eff5f9; margin-top: 50px">
+    <div
+        style="
+            max-width: 1200px;
+            margin: auto;
+            background-color: #eff5f9;
+            height: 50px;
+            margin-left: 100px;
+        "
+    >
+        <button
+            mat-raised-button
+            class="small-button"
+            type="button"
+            routerLink="/listnotific"
+            style="color: white"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+            >
+                <path
+                    d="M20.25 12H3.75"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+                <path
+                    d="M10.5 5.25L3.75 12L10.5 18.75"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+            </svg>
+        </button>
+
+        <!--        <h2>Ajout Utilisateur</h2>-->
+    </div>
+</div>
+
+<div class="row omar">
+    <div class="col-lg-3 mb-25 tagus-card"></div>
+    <div class="col-lg-9 mb-25 tagus-card">
+        <mat-card class="card2">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()" novalidate>
+                <h5 id="targetRed">Informations du compte</h5>
+                <div class="bg-card">
+                    <!-- Account Information Fields -->
+                    <div
+                        class="row align-items-center"
+                        *ngFor="let field of accountFields"
+                    >
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>{{ field.label }}</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <input
+                                        matInput
+                                        [formControlName]="field.name"
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Pays</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select [formControlName]="'pays'">
+                                        <mat-option value="Italie"
+                                            >Italie</mat-option
+                                        >
+                                        <mat-option value="France"
+                                            >France</mat-option
+                                        >
+                                        <!-- Vous pouvez ajouter d'autres options ici si nécessaire -->
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Categorie</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select [formControlName]="'categorie'">
+                                        <mat-option value="Offre spéciale"
+                                            >Offre spéciale</mat-option
+                                        >
+                                        <mat-option value="Produit"
+                                            >Produit</mat-option
+                                        >
+                                        <mat-option value="Article"
+                                            >Article</mat-option
+                                        >
+                                        <mat-option value="Evènement"
+                                            >Evènement
+                                        </mat-option>
+                                        <!-- Vous pouvez ajouter d'autres options ici si nécessaire -->
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div class="form-group">
+                        <label>File Upload</label>
+                        <input
+                            class="form-control"
+                            type="file"
+                            (change)="selectFiles($event)"
+                            multiple
+                            required
+                        />
+                    </div>-->
+                </div>
+
+                <!-- <div class="form-group">
+                    <label>File Upload </label>
+                    <input
+                        class="form-control"
+                        type="file"
+                        formControlName="photo"
+                        (change)="selectFiles($event)"
+                        required
+                    />
+                </div>-->
+
+                <div class="form-group">
+                    <label>File Upload</label>
+                    <input
+                        class="form-control"
+                        type="file"
+                        formControlName="photo"
+                        (change)="selectFiles($event)"
+                        multiple
+                        required
+                    />
+                </div>
+
+                <button mat-raised-button type="submit">Submit</button>
+            </form>
+        </mat-card>
+    </div>
+</div>

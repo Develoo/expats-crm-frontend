@@ -1,0 +1,20 @@
+# Utiliser une image Node pour construire l'application Angular
+FROM node:18-alpine as build
+
+# Définir le répertoire de travail
+WORKDIR /app
+
+# Copier les fichiers du projet Angular
+COPY . .
+
+# Installer les dépendances et construire l'application
+RUN npm install && npm run build --prod
+
+# Utiliser une image Nginx pour servir l'application Angular
+FROM nginx:alpine
+
+# Copier les fichiers Angular générés dans le dossier de Nginx
+COPY --from=build /app/dist/tagus/usr/share/nginx/html
+
+# Exposer le port utilisé par Nginx
+EXPOSE 80

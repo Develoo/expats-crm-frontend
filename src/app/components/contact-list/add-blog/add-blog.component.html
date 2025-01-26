@@ -1,0 +1,289 @@
+<div style="background-color: #eff5f9">
+    <div
+        style="
+            max-width: 1200px;
+            margin: auto;
+            background-color: #eff5f9;
+            height: 50px;
+        "
+    >
+        <!--        <h2>Ajout Utilisateur</h2>-->
+    </div>
+</div>
+
+<div class="row omar">
+    <div class="col-lg-3 mb-25 tagus-card"></div>
+
+    <div class="col-lg-9 mb-25 tagus-card">
+        <mat-card class="card2">
+            <form [formGroup]="blogForm" (ngSubmit)="onSubmit()" novalidate>
+                <h5 id="targetRed">Informations du compte</h5>
+                <div class="bg-card">
+                    <!-- Account Information Fields -->
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>File Upload</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <input
+                                    class="form-control"
+                                    type="file"
+                                    formControlName="photo"
+                                    (change)="selectFiles($event)"
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--  <div class="form-group">
+                        <label>File Upload </label>
+                        <input
+                            class="form-control"
+                            style="margin-left: 112px"
+                            type="file"
+                            formControlName="photo"
+                            (change)="selectFiles($event)"
+                            required
+                        />
+                    </div>-->
+                    <!--  <div class="col-lg-6 col-md-6">
+                        <mat-card class="mb-25 tagus-card">
+                            <mat-card-header>
+                                <h5 class="mb-0">Simple File Uploader</h5>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <ngx-dropzone (change)="onSelect($event)">
+                                    <ngx-dropzone-label class="fw-semibold">
+                                        Drop files here or click to upload.
+                                    </ngx-dropzone-label>
+                                    <ngx-dropzone-preview
+                                        *ngFor="let f of files"
+                                        [removable]="true"
+                                        (removed)="onRemove(f)"
+                                    >
+                                        <ngx-dropzone-label
+                                            >{{ f.name }} ({{
+                                                f.type
+                                            }})</ngx-dropzone-label
+                                        >
+                                    </ngx-dropzone-preview>
+                                </ngx-dropzone>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>-->
+
+                    <div
+                        class="row align-items-center"
+                        *ngFor="let field of accountFields"
+                        style="margin-top: 40px"
+                    >
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>{{ field.label }}</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <input
+                                        matInput
+                                        [formControlName]="field.name"
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Pays</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select [formControlName]="'pays'">
+                                        <mat-option value="italie"
+                                            >italie</mat-option
+                                        >
+                                        <mat-option value="France"
+                                            >France</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Categorie</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select
+                                        formControlName="blogCategorieId"
+                                    >
+                                        <mat-option
+                                            *ngFor="let categorie of categories"
+                                            [value]="categorie.id"
+                                        >
+                                            {{ categorie.nom }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Sous-catégories</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select
+                                        formControlName="blogScategorieIds"
+                                        multiple
+                                    >
+                                        <mat-option
+                                            *ngFor="
+                                                let scategorie of blogScategories
+                                            "
+                                            [value]="scategorie.id"
+                                        >
+                                            {{ scategorie.nom }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div formArrayName="tags">
+                        <div *ngFor="let tag of tags.controls; let i = index">
+                            <input
+                                [formControlName]="i"
+                                placeholder="Tag {{ i + 1 }}"
+                            />
+                            <button type="button" (click)="removeTag(i)">
+                                Supprimer
+                            </button>
+                        </div>
+                        <button type="button" (click)="addTag()">
+                            Ajouter un tag
+                        </button>
+                    </div>-->
+
+                    <div formArrayName="tags">
+                        <div *ngFor="let tag of tags.controls; let i = index">
+                            <div [formGroupName]="i" class="form-group">
+                                <label for="tag">Tag {{ i + 1 }}</label>
+                                <input
+                                    type="text"
+                                    formControlName="nom"
+                                    class="form-control"
+                                    placeholder="Tag"
+                                    class="col-lg-7 col-md-7 col-sm-7 d-flex tag"
+                                />
+                                <!-- <button
+                                    type="button"
+                                    (click)="removeTag(i)"
+                                    class="btn btn-danger"
+                                >
+                                    Supprimer
+                                </button>-->
+                                <div class="storage-status">
+                                    <a
+                                        class="muted-color d-block pointer-cursor"
+                                        style="
+                                            color: #007fff !important;
+                                            margin-left: 191px;
+                                        "
+                                        (click)="removeTag(i)"
+                                    >
+                                        - Supprimer</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="storage-status">
+                            <a
+                                class="muted-color d-block pointer-cursor"
+                                style="
+                                    color: #007fff !important;
+                                    margin-left: 191px;
+                                "
+                                (click)="addTag()"
+                            >
+                                + Ajouter un autre tag</a
+                            >
+                        </div>
+                        <!--<button
+                            type="button"
+                            (click)="addTag()"
+                            class="btn btn-primary mt-2"
+                        >
+                            Ajouter un autre tag
+                        </button>-->
+                    </div>
+
+                    <div class="tagus-form-group mb-20">
+                        <quill-editor
+                            [styles]="{ height: '250px' }"
+                            formControlName="content"
+                            (onFocus)="focus($event)"
+                            (onEditorChanged)="changedEditor($event)"
+                            (onBlur)="blur($event)"
+                            (onEditorCreated)="created($event)"
+                        ></quill-editor>
+                    </div>
+
+                    <!--<div class="form-group">
+                        <label>File Upload</label>
+                        <input
+                            class="form-control"
+                            type="file"
+                            (change)="selectFiles($event)"
+                            multiple
+                            required
+                        />
+                    </div>-->
+                </div>
+
+                <!--<div class="form-group">
+                    <label>File Upload </label>
+                    <input
+                        class="form-control"
+                        type="file"
+                        formControlName="photo"
+                        (change)="selectFiles($event)"
+                        required
+                    />
+                </div>-->
+
+                <button
+                    mat-raised-button
+                    type="submit"
+                    class="enreg"
+                    style="background-color: #007fff"
+                >
+                    <div style="color: white">Enregistrer</div>
+                </button>
+
+                <button
+                    type="button"
+                    mat-raised-button
+                    class="annul"
+                    routerLink="/listblog"
+                >
+                    Annuler
+                </button>
+            </form>
+        </mat-card>
+    </div>
+</div>

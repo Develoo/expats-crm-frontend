@@ -1,0 +1,71 @@
+.select {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 25px;
+    width: 110px;
+    font-size: 14px;
+    text-align: justify;
+}
+
+/* Styles dynamiques pour les états */
+.select-refuse {
+    background-color: #FFEAEA; /* rouge pâle */
+    color: #F88087;
+;
+}
+
+.select-actif {
+    background-color: #DEFBEC; /* vert pâle */
+    color: #67C696;
+;
+}
+
+.select-enattente {
+    background-color: #FFE6D2; /* orange pâle */
+    color: #FFA24E;
+}
+
+.mat-mdc-select {
+    display: inline-block;
+    width: 50%;}
+
+    .mat-mdc-select-value {
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 50px;
+    }
+
+    .omar {
+        max-width: 1200px;
+        margin: auto;
+        margin-top: 50px;
+    }
+
+    .custom-card {
+        border-radius: var(--Border-Radius-4-px, 4px);
+        background: var(--blue-gris, #EFF5F9);
+        padding: 10px; /* Ajoute un peu de padding interne pour un meilleur aspect */
+        margin-bottom: 20px; /* Ajoute une marge pour espacer les éléments */
+    }
+.btn{
+    border-radius: 5px;
+                            border: #007fff;
+                            font-family: inter;
+                            background: var(--blue-main, #007fff);
+                            padding: 8px 20px;
+                            justify-content: center;
+                            align-items: center;
+
+                            color: var(
+                                --Color-Tokens-Content-Light-Primary,
+                                #fff
+                            );
+                            font-family: Inter;
+                            font-size: 14px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 150%;
+}
+    

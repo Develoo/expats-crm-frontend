@@ -1,0 +1,104 @@
+<div class="container-fluid mt--7 up">
+    <div class="row">
+        <!-- <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+            <div class="card card-profile shadow">
+                <div class="row justify-content-center">
+                    <div class="col-lg-3 order-lg-2"></div>
+                </div>
+                <div class="card-body pt-0 pt-md-4">
+                    <div class="row">
+                        <div class="col">
+                            <div
+                                class="card-profile-stats d-flex justify-content-center mt-md-5"
+                            ></div>
+                        </div>
+                    </div>
+
+                    <div
+                        class="text-center"
+                        *ngIf="currentUser; else loggedOut"
+                    >
+                        <div class="h4 font-weight-300">
+                            <i class="ni location_pin mr-2"></i
+                            >{{ currentUser.email }}
+                        </div>
+
+                        <h3>
+                            Profil:
+                            {{ getRole(currentUser.roles[0].name) }}
+                        </h3>
+                    </div>
+
+                    <ng-template #loggedOut> Connectez vouss. </ng-template>
+                </div>
+            </div>
+        </div>-->
+        <div class="col-xl-8 order-xl-1">
+            <div class="card bg-secondary shadow">
+                <div class="card-body">
+                    <form>
+                        <h6 class="heading-small text-muted mb-4">
+                            Modifier vos informations
+                        </h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label
+                                            class="form-control-label"
+                                            for="username"
+                                            >Identifiant</label
+                                        >
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label
+                                            class="form-control-label"
+                                            for="email"
+                                            >adresse mail</label
+                                        >
+                                        {{ currentUser.email }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            class="form-control-label"
+                                            for="email"
+                                            >Nom Entreprise</label
+                                        >
+                                        {{ currentUser.nomentreprise }}
+                                    </div>
+                                    <div class="form-group">
+                                        <label
+                                            class="form-control-label"
+                                            for="email"
+                                            >Secteur activité</label
+                                        >
+                                        {{ currentUser.secteuractivite }}
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label
+                                            class="form-control-label"
+                                            for="email"
+                                            >Numéro de téléphone</label
+                                        >
+                                        {{ currentUser.numtel }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <button
+                        type="button"
+                        class="btn btn-danger"
+                        (click)="updateBook()"
+                    >
+                        Mettre à jour
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />

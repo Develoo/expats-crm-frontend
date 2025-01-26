@@ -1,0 +1,219 @@
+
+mat-card-content{
+    background-color: aliceblue;
+}
+//
+//.tagus-form-row {
+//    display: flex;
+//    justify-content: space-between; /* Espace uniformément les groupes */
+//    margin-bottom: 15px; /* Espacement entre les rangées de champs */
+//}
+//
+//.tagus-form-group {
+//    flex: 1; /* Chaque groupe prend 50% de la largeur dans la rangée */
+//    margin-right: 10px; /* Espacement horizontal entre les groupes */
+//}
+//
+//.custom-file-input {
+//    position: relative;
+//    width: 200px; /* Ajustez la taille selon vos besoins */
+//    height: 200px; /* Ajustez la taille selon vos besoins */
+//    background-color: white;
+//    border: 2px dashed #ccc;
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
+//    cursor: pointer;
+//}
+//
+//.custom-file-input input[type="file"] {
+//    position: absolute;
+//    width: 100%;
+//    height: 100%;
+//    opacity: 0;
+//    cursor: pointer;
+//}
+//
+//.custom-file-input-text {
+//    position: absolute;
+//    color: #ccc;
+//    font-size: 16px;
+//    text-align: center;
+//}
+//.col-lg-6{
+//    margin-top: 25px
+//}
+//.small-input {
+//    width: 70px; /* Ajustez la largeur selon vos besoins */
+//}
+//
+//.small-input .mat-form-field-infix {
+//    padding: 0 8px; /* Ajustez le padding selon vos besoins */
+//}
+//
+//.small-input .mat-input-element {
+//    font-size: 12px; /* Ajustez la taille de la police selon vos besoins */
+//    height: 24px; /* Ajustez la hauteur selon vos besoins */
+//}
+//form{
+//    margin-left: 7px;
+//}
+//.small-select {
+//  //  width: 150px; /* Ajustez la largeur selon vos besoins */
+//    display: flex;
+//    align-items: center;
+//}
+//
+//.small-select .mat-form-field-infix {
+//    padding: 0 8px; /* Ajustez le padding selon vos besoins */
+//}
+//
+//.small-select .mat-select {
+//    font-size: 12px; /* Ajustez la taille de la police selon vos besoins */
+//    height: 24px; /* Ajustez la hauteur selon vos besoins */
+//}
+.card2 {
+    padding: 20px;
+}
+
+.mat-mdc-form-field-infix {
+    min-height: 43px !important;
+}
+
+.tagus-form-group .mdc-text-field--no-label:not(.mdc-text-field--outlined):not(.mdc-text-field--textarea) .mat-mdc-form-field-infix {
+    //  padding: 11px;
+}
+
+
+.example-accordion-item {
+    display: block;
+    border: solid 1px #eeeeee;
+}
+
+.example-accordion-item + .example-accordion-item {
+    border-top: none;
+}
+
+.example-accordion-item-header {
+    // display: flex;
+    font-weight: 600;
+    align-content: center;
+    justify-content: space-between;
+
+    &:hover {
+        cursor: pointer;
+        background-color: #f9f9f9;
+    }
+}
+
+.example-accordion-item-header, .example-accordion-item-body {
+    padding: 15px 0px 15px 0px;
+    border-bottom: 1px solid #ddd8d8;
+    justify-content: flex-start;
+    display: flex;
+}
+
+.example-accordion-item {
+    &:first-child {
+        border: {
+            top: {
+                left-radius: 4px;
+                right-radius: 4px;
+            }
+        };
+    }
+
+    &:last-child {
+        border: {
+            bottom: {
+                left-radius: 4px;
+                right-radius: 4px;
+            }
+        };
+    }
+}
+
+.component-dark-theme {
+    .example-accordion-item {
+        border-color: #1f2226 !important;
+    }
+
+    .example-accordion-item-header {
+        &:hover {
+            background-color: #1d2024 !important;
+        }
+    }
+}
+
+mat-card {
+    padding: 20px;
+
+}
+
+.omar {
+    max-width: 1200px;
+    margin: auto;
+    margin-top: 50px;
+}
+
+h5 {
+    font-size: 18px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+
+mat-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+svg {
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+}
+
+.mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.mat-card-fixed {
+    position: fixed;
+}
+
+.langues-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.reseauSociau-container {
+    margin-top: 38px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.langue-item {
+    display: flex;
+    align-items: center;
+    margin-right: 10px; /* Espacement entre les éléments */
+}
+
+.langue-nom-field,
+.nv-comp-field {
+    flex: 1; /* Les champs s'étirent pour remplir l'espace disponible */
+    margin-right: 10px; /* Espacement entre les champs */
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.bg-card {
+    background-color: aliceblue;
+    padding: 40px;
+    border-radius: 5px;
+}

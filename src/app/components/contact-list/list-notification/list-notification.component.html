@@ -1,0 +1,1661 @@
+<div style="background-color: #eff5f9; margin-top: 50px">
+    <div
+        style="
+            max-width: 1200px;
+            margin: auto;
+            background-color: #eff5f9;
+            height: 50px;
+            margin-left: 1150px;
+        "
+    >
+        <button
+            mat-raised-button
+            class="small-button"
+            type="button"
+            routerLink="/addnotification"
+            style="color: white"
+        >
+            Ajouter +
+        </button>
+
+        <!--        <h2>Ajout Utilisateur</h2>-->
+    </div>
+</div>
+
+<mat-card
+    class="mb-25 tagus-card"
+    [class.component-rtl-enabled]="themeService.isRTLEnabled()"
+>
+    <div class="row omar">
+        <div class="col-lg-3 col-xxl-3">
+            <mat-card
+                class="mb-25 file-manager-box tagus-card"
+                [class.component-dark-theme]="themeService.isDark()"
+                [class.component-rtl-enabled]="themeService.isRTLEnabled()"
+            >
+                <mat-card-content>
+                    <mat-tab-group
+                        dynamicHeight
+                        (selectedTabChange)="onTabChange($event)"
+                    >
+                        <mat-tab>
+                            <div class="example-small-box">
+                                <div class="mt-25">
+                                    <form
+                                        class="search-box position-relative"
+                                        (submit)="onSearch($event)"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="input-search d-block"
+                                            placeholder="Recherche..."
+                                            [(ngModel)]="searchTerm"
+                                            name="search"
+                                        />
+                                        <button type="submit">
+                                            <i class="ri-search-line"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <ul
+                                    *ngIf="
+                                        !showActifTab &&
+                                        !showEnAttenteTab &&
+                                        !showRefuseTab
+                                    "
+                                    class="file-manager-sidebar ps-0 mb-0"
+                                >
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Pays</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="let p of pays"
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="p.nom"
+                                                            (change)="
+                                                                getVilleByPays(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedPayss.includes(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="p.nom"
+                                                            class="secteur"
+                                                            >{{ p.nom }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersByPays(
+                                                                    p.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = false"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Catégories</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let cat of categories
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="cat"
+                                                            (change)="
+                                                                onCategorieChange(
+                                                                    cat
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedCategories.includes(
+                                                                    cat
+                                                                )
+                                                            "
+                                                        />
+                                                        <label [for]="cat">{{
+                                                            cat
+                                                        }}</label>
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getNotificationByCategorie(
+                                                                    cat
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+
+                                    <!-- Liste des notifications filtrées -->
+                                    <li
+                                        *ngFor="
+                                            let notification of filteredNotifications
+                                        "
+                                    >
+                                        <mat-expansion-panel>
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    {{ notification.titre }}
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <p>
+                                                {{ notification.description }}
+                                            </p>
+                                        </mat-expansion-panel>
+                                    </li>
+
+                                    <!-- <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Catégories</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let categorie of blogScategories
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="categorie.nom"
+                                                            (change)="
+                                                                onCategoryChange(
+                                                                    categorie.id
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedCategories.includes(
+                                                                    categorie.id
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="
+                                                                categorie.nom
+                                                            "
+                                                            class="secteur"
+                                                            >{{
+                                                                categorie.nom
+                                                            }}</label
+                                                        >
+                                                    </div>
+                                                    <div
+                                                        *ngIf="
+                                                            filteredBlogs &&
+                                                                filteredBlogs.length >
+                                                                    0;
+                                                            else noBlogsFound
+                                                        "
+                                                    >
+                                                        <div
+                                                            *ngFor="
+                                                                let blog of filteredBlogs
+                                                            "
+                                                            class="blog-item"
+                                                        >
+                                                            <h3>
+                                                                {{ blog.title }}
+                                                            </h3>
+                                                            <img
+                                                                [src]="
+                                                                    blog.photo
+                                                                "
+                                                                alt="{{
+                                                                    blog.title
+                                                                }}"
+                                                                width="150px"
+                                                            />
+                                                            <p>
+                                                                {{ blog.pays }}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                    <ng-template #noBlogsFound>
+                                                        <p>
+                                                            Aucun blog trouvé
+                                                            pour cette
+                                                            catégorie.
+                                                        </p>
+                                                    </ng-template>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>-->
+
+                                    <!--<li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Ville</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let ville of filteredVilles
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="ville.nom"
+                                                            [checked]="
+                                                                selectedVilles.includes(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                            (change)="
+                                                                toggleVille(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="ville.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                ville.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersByVille(
+                                                                    ville.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>-->
+                                </ul>
+                                <ul
+                                    *ngIf="showActifTab"
+                                    class="file-manager-sidebar ps-0 mb-0"
+                                >
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Secteur
+                                                        d'activités</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let category of categorie
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <!--
+                                                     <input
+                                                            type="checkbox"
+                                                            [id]="category.nom"
+                                                            (change)="
+                                                                toggleCategory(
+                                                                    category.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedCategories.includes(
+                                                                    category.nom
+                                                                )
+                                                            "
+                                                        />-->
+                                                        <label
+                                                            [for]="category.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                category.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersProActifByCategory(
+                                                                    category.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Pays</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="let p of pays"
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="p.nom"
+                                                            (change)="
+                                                                getVilleByPays(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedPayss.includes(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="p.nom"
+                                                            class="secteur"
+                                                            >{{ p.nom }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getusersProActifByPays(
+                                                                    p.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Ville</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let ville of filteredVilles
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="ville.nom"
+                                                            [checked]="
+                                                                selectedVilles.includes(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                            (change)="
+                                                                toggleVille(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="ville.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                ville.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersProActifByVille(
+                                                                    ville.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+                                </ul>
+                                <ul
+                                    *ngIf="showEnAttenteTab"
+                                    class="file-manager-sidebar ps-0 mb-0"
+                                >
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Secteur
+                                                        d'activité</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let category of categorie
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <!--<input
+                                                            type="checkbox"
+                                                            [id]="category.nom"
+                                                            (change)="
+                                                                toggleCategory(
+                                                                    category.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedCategories.includes(
+                                                                    category.nom
+                                                                )
+                                                            "
+                                                        />-->
+                                                        <label
+                                                            [for]="category.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                category.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersProEnAttenteByCategory(
+                                                                    category.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Pays</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="let p of pays"
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="p.nom"
+                                                            (change)="
+                                                                getVilleByPays(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedPayss.includes(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="p.nom"
+                                                            class="secteur"
+                                                            >{{ p.nom }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getusersProEnAttenteByPays(
+                                                                    p.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Ville</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let ville of filteredVilles
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="ville.nom"
+                                                            [checked]="
+                                                                selectedVilles.includes(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                            (change)="
+                                                                toggleVille(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="ville.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                ville.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersProEnAttenteByVille(
+                                                                    ville.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+                                </ul>
+                                <ul
+                                    *ngIf="showRefuseTab"
+                                    class="file-manager-sidebar ps-0 mb-0"
+                                >
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Secteur
+                                                        d'activité</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let category of categorie
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <!--  <input
+                                                            type="checkbox"
+                                                            [id]="category.nom"
+                                                            (change)="
+                                                                toggleCategory(
+                                                                    category.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedCategories.includes(
+                                                                    category.nom
+                                                                )
+                                                            "
+                                                        />-->
+                                                        <label
+                                                            [for]="category.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                category.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersProRefuseByCategory(
+                                                                    category.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Pays</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="let p of pays"
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="p.nom"
+                                                            (change)="
+                                                                getVilleByPays(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedPayss.includes(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="p.nom"
+                                                            class="secteur"
+                                                            >{{ p.nom }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getusersProRefuseByPays(
+                                                                    p.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Ville</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let ville of filteredVilles
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="ville.nom"
+                                                            [checked]="
+                                                                selectedVilles.includes(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                            (change)="
+                                                                toggleVille(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="ville.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                ville.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersProRefuseByVille(
+                                                                    ville.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+                                </ul>
+
+                                <div class="storage-status">
+                                    <a
+                                        class="muted-color d-block pointer-cursor"
+                                        (click)="resetFilter()"
+                                    >
+                                        <i
+                                            class="flaticon flaticon-refresh me-5"
+                                        ></i>
+                                        Réinitialiser le filtre</a
+                                    >
+                                </div>
+                            </div>
+                        </mat-tab>
+
+                        <!--<mat-tab label="Utilisateurs">
+                            <div class="example-large-box">
+                                <div class="mt-25">
+                                    <form
+                                        class="search-box position-relative"
+                                        (submit)="onSearch($event)"
+                                    >
+                                        <input
+                                            type="text"
+                                            class="input-search d-block"
+                                            placeholder="Recherche..."
+                                            [(ngModel)]="searchTerm"
+                                            name="search"
+                                        />
+                                        <button type="submit">
+                                            <i class="ri-search-line"></i>
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <ul
+                                    *ngIf="!showAmbassadeurTab"
+                                    class="file-manager-sidebar ps-0 mb-0"
+                                >
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Pays</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="let p of pays"
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="p.nom"
+                                                            (change)="
+                                                                getVilleByPays(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedPayss.includes(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="p.nom"
+                                                            class="secteur"
+                                                            >{{ p.nom }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUserAndEmbByPays(
+                                                                    p.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Ville</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let ville of filteredVilles
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="ville.nom"
+                                                            [checked]="
+                                                                selectedVilles.includes(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                            (change)="
+                                                                toggleVille(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="ville.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                ville.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getUsersAndEmbByVille(
+                                                                    ville.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+                                </ul>
+                                <ul
+                                    *ngIf="showAmbassadeurTab"
+                                    class="file-manager-sidebar ps-0 mb-0"
+                                >
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Pays</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="let p of pays"
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="p.nom"
+                                                            (change)="
+                                                                getVilleByPays(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                            [checked]="
+                                                                selectedPayss.includes(
+                                                                    p.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="p.nom"
+                                                            class="secteur"
+                                                            >{{ p.nom }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getEmbByPays(
+                                                                    p.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+
+                                    <li>
+                                        <mat-expansion-panel
+                                            (opened)="panelOpenState = true"
+                                            (closed)="panelOpenState = true"
+                                        >
+                                            <mat-expansion-panel-header>
+                                                <mat-panel-title>
+                                                    <span class="title"
+                                                        >Ville</span
+                                                    >
+                                                </mat-panel-title>
+                                            </mat-expansion-panel-header>
+                                            <mat-accordion>
+                                                <div class="scrollable-list">
+                                                    <div
+                                                        *ngFor="
+                                                            let ville of filteredVilles
+                                                        "
+                                                        class="mb-10"
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            [id]="ville.nom"
+                                                            [checked]="
+                                                                selectedVilles.includes(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                            (change)="
+                                                                toggleVille(
+                                                                    ville.nom
+                                                                )
+                                                            "
+                                                        />
+                                                        <label
+                                                            [for]="ville.nom"
+                                                            class="secteur"
+                                                            >{{
+                                                                ville.nom
+                                                            }}</label
+                                                        >
+                                                        <div
+                                                            class="muted-color text-right number"
+                                                        >
+                                                            ({{
+                                                                getEmbByVille(
+                                                                    ville.nom
+                                                                )
+                                                            }})
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </mat-accordion>
+                                        </mat-expansion-panel>
+                                    </li>
+                                </ul>
+
+                                <div class="storage-status">
+                                    <a
+                                        class="muted-color d-block pointer-cursor"
+                                        (click)="resetFilter()"
+                                    >
+                                        <i
+                                            class="flaticon flaticon-refresh me-5"
+                                        ></i>
+                                        Réinitialiser le filtre</a
+                                    >
+                                </div>
+                            </div> </mat-tab
+                        >-->
+                    </mat-tab-group>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="col-lg-9 col-xxl-9">
+            <mat-card-content *ngIf="selectedTab === 0">
+                <mat-tab-group
+                    mat-stretch-tabs="false"
+                    mat-align-tabs="start"
+                    class="custom-tab-group"
+                    (selectedTabChange)="onTabChange3($event)"
+                >
+                    <mat-tab label="Tous"
+                        ><br />
+                        <mat-card-header>
+                            <div class="d-flex align-items-center">
+                                <h5 class="mb-0">Notifications</h5>
+                                <span class="d-block count"
+                                    >{{ proCount }} Notifications</span
+                                >
+                            </div>
+                            <!--<a
+                                mat-flat-button
+                                class="default-btn tagus small"
+                                routerLink=""
+                            >
+                                <i class="ri-add-fill"></i> Exports
+                            </a>-->
+                            <button
+                                (click)="exportexcel()"
+                                mat-flat-button
+                                class="default-btn tagus small"
+                            >
+                                Export to Excel
+                            </button>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="table-responsive">
+                                <table class="table" id="excel-table">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="fw-semibold main-color"
+                                                style="width: 65%"
+                                            >
+                                                Nom
+                                            </th>
+                                            <!-- <th
+                                                class="fw-semibold gray-color"
+                                                style="width: 20%"
+                                            >
+                                                Etat
+                                            </th>-->
+                                            <th
+                                                class="fw-semibold gray-color"
+                                                style="width: 15%"
+                                            ></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </mat-card-content>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+            <mat-card-content *ngIf="selectedTab === 1">
+                <mat-tab-group
+                    mat-stretch-tabs="false"
+                    mat-align-tabs="start"
+                    class="custom-tab-group"
+                    (selectedTabChange)="onTabChange2($event)"
+                >
+                    <mat-tab label="Tous"
+                        ><br />
+                        <mat-card-header>
+                            <div class="d-flex align-items-center">
+                                <h5 class="mb-0">Utilisateurs</h5>
+                                <span class="d-block count"
+                                    >{{ userCount }} Professionnels</span
+                                >
+                            </div>
+                            <!--  <a
+                                mat-flat-button
+                                class="default-btn tagus small"
+                                routerLink=""
+                            >
+                                <i class="ri-add-fill"></i> Export
+                            </a>-->
+                            <button
+                                (click)="exportexcel()"
+                                mat-flat-button
+                                class="default-btn tagus small"
+                            >
+                                Export to Excel
+                            </button>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="table-responsive">
+                                <table class="table" id="excel-table">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="fw-semibold main-color"
+                                                style="width: 65%"
+                                            >
+                                                Nom
+                                            </th>
+                                            <th
+                                                class="fw-semibold gray-color"
+                                                style="width: 20%"
+                                            ></th>
+                                            <th
+                                                class="fw-semibold gray-color"
+                                                style="width: 15%"
+                                            ></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            *ngFor="
+                                                let user of filteredUtilisateurs
+                                            "
+                                        >
+                                            <td>
+                                                <div
+                                                    class="user-info d-flex align-items-center"
+                                                >
+                                                    <mat-checkbox
+                                                        class="fm-checkbox"
+                                                    ></mat-checkbox>
+                                                    <img
+                                                        src="assets/img/user/user12.jpg"
+                                                        class="rounded-circle"
+                                                        alt="user"
+                                                    />
+                                                    <div class="title">
+                                                        <h5
+                                                            class="fw-semibold mb-5"
+                                                        >
+                                                            {{ user.username }}
+                                                        </h5>
+                                                        <div
+                                                            class="d-flex align-items-center"
+                                                        >
+                                                            <span
+                                                                class="muted-color"
+                                                                style="
+                                                                    margin-right: 20px;
+                                                                "
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    width="16"
+                                                                    height="16"
+                                                                    fill="currentColor"
+                                                                    class="bi bi-geo-alt"
+                                                                    viewBox="0 0 16 16"
+                                                                >
+                                                                    <path
+                                                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+                                                                    />
+                                                                    <path
+                                                                        d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                                                                    />
+                                                                </svg>
+                                                                {{ user.pays }},
+                                                                {{
+                                                                    user.ville
+                                                                }}</span
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    *ngIf="
+                                                        getRole(
+                                                            user.roles[0].name
+                                                        ) === 'EMBASSADEUR'
+                                                    "
+                                                    class="role-embassadeur"
+                                                >
+                                                    Embassadeur</span
+                                                >
+                                            </td>
+
+                                            <td>
+                                                <div class="icon-container">
+                                                    <img
+                                                        src="assets/img/icon/Edit33.svg"
+                                                        alt="My Icon"
+                                                    />
+                                                    <img
+                                                        src="assets/img/icon/poubelle2.svg"
+                                                        alt="My Icon"
+                                                    />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </mat-card-content>
+                    </mat-tab>
+
+                    <mat-tab label="Ambassadeur"
+                        ><br />
+                        <mat-card-header>
+                            <div class="d-flex align-items-center">
+                                <h5 class="mb-0">Ambassadeurs</h5>
+                                <span class="d-block count"
+                                    >{{ ambassadeurCount }} Ambassadeurs</span
+                                >
+                            </div>
+                            <a
+                                mat-flat-button
+                                class="default-btn tagus small"
+                                routerLink=""
+                            >
+                                <i class="ri-add-fill"></i> Export
+                            </a>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="table-responsive">
+                                <table class="table" id="excel-table">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="fw-semibold main-color"
+                                                style="width: 65%"
+                                            >
+                                                Nom
+                                            </th>
+                                            <th
+                                                class="fw-semibold gray-color"
+                                                style="width: 20%"
+                                            ></th>
+                                            <th
+                                                class="fw-semibold gray-color"
+                                                style="width: 15%"
+                                            ></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            *ngFor="
+                                                let user of filteredAmbassadeur
+                                            "
+                                        >
+                                            <td>
+                                                <div
+                                                    class="user-info d-flex align-items-center"
+                                                >
+                                                    <mat-checkbox
+                                                        class="fm-checkbox"
+                                                    ></mat-checkbox>
+                                                    <img
+                                                        src="assets/img/user/user12.jpg"
+                                                        class="rounded-circle"
+                                                        alt="user"
+                                                    />
+                                                    <div class="title">
+                                                        <h5
+                                                            class="fw-semibold mb-5"
+                                                        >
+                                                            {{ user.username }}
+                                                        </h5>
+                                                        <div
+                                                            class="d-flex align-items-center"
+                                                        >
+                                                            <span
+                                                                class="muted-color"
+                                                                style="
+                                                                    margin-right: 20px;
+                                                                "
+                                                            >
+                                                                <svg
+                                                                    xmlns="http://www.w3.org/2000/svg"
+                                                                    width="16"
+                                                                    height="16"
+                                                                    fill="currentColor"
+                                                                    class="bi bi-geo-alt"
+                                                                    viewBox="0 0 16 16"
+                                                                >
+                                                                    <path
+                                                                        d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10"
+                                                                    />
+                                                                    <path
+                                                                        d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6"
+                                                                    />
+                                                                </svg>
+                                                                {{ user.pays }},
+                                                                {{
+                                                                    user.ville
+                                                                }}</span
+                                                            >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <span
+                                                    *ngIf="
+                                                        getRole(
+                                                            user.roles[0].name
+                                                        ) === 'EMBASSADEUR'
+                                                    "
+                                                    class="role-embassadeur"
+                                                >
+                                                    Embassadeur</span
+                                                >
+                                            </td>
+
+                                            <td>
+                                                <div class="icon-container">
+                                                    <img
+                                                        src="assets/img/icon/Edit33.svg"
+                                                        alt="My Icon"
+                                                    />
+                                                    <img
+                                                        src="assets/img/icon/poubelle2.svg"
+                                                        alt="My Icon"
+                                                    />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </mat-card-content>
+                    </mat-tab>
+                </mat-tab-group>
+            </mat-card-content>
+        </div>
+    </div>
+</mat-card>
+
+<!--<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between"
+>
+    <h5 class="mb-0">Users</h5>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item gray-color">Projects</li>
+        <li class="breadcrumb-item fw-semibold">Users</li>
+    </ol>
+</div>
+
+<div class="cards-container">
+    <mat-card class="filter-card" style="margin-bottom: 26px">
+        <mat-card-content>
+            <div class="left-column">
+                <form class="search-box position-relative">
+                    <input
+                        type="text"
+                        class="input-search d-block"
+                        placeholder="Recherche..."
+                        [(ngModel)]="searchTerm"
+                        name="search"
+                        (input)="onSearch()"
+                    />
+                </form>
+
+                <mat-expansion-panel
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = true"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <span class="title">Pays</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-accordion>
+                        <div class="scrollable-list">
+                            <div *ngFor="let p of pays" class="mb-10">
+                                <input
+                                    type="checkbox"
+                                    [id]="p.nom"
+                                    (change)="
+                                        onPaysSelectionChange($event, p.nom)
+                                    "
+                                    [checked]="selectedPayss.includes(p.nom)"
+                                />
+                                <label [for]="p.nom" class="secteur">{{
+                                    p.nom
+                                }}</label>
+                                <div class="muted-color text-right number">
+                                    ({{ getUsersByPays(p.nom) }})
+                                </div>
+                            </div>
+                        </div>
+                    </mat-accordion>
+                </mat-expansion-panel>
+            </div>
+        </mat-card-content>
+
+        <mat-card-content>
+            <div class="left-column">
+                
+
+                <mat-expansion-panel
+                    (opened)="panelOpenState = true"
+                    (closed)="panelOpenState = true"
+                >
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            <span class="title">Catégorie</span>
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-accordion>
+                        <div class="scrollable-list">
+                            <div *ngFor="let c of categories" class="mb-10">
+                                <input
+                                    type="checkbox"
+                                    [id]="c"
+                                    (change)="
+                                        onCategorieSelectionChange($event, c)
+                                    "
+                                    [checked]="selectedCategories.includes(c)"
+                                />
+                                <label [for]="c" class="secteur">{{ c }}</label>
+                                <div class="muted-color text-right number">
+                                    ({{ getUsersByCategorie(c) }})
+                                </div>
+                            </div>
+                        </div>
+                    </mat-accordion>
+                </mat-expansion-panel>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    
+    <mat-card class="mb-25 tagus-card test">
+        <mat-card-header>
+            
+            <div class="d-flex align-items-center">
+                <h5 class="mb-0">Numéros de Notification</h5>
+                <span class="d-block count">{{ proCount }} Numéros</span>
+            </div>
+            
+        </mat-card-header>
+        <mat-card-content>
+            <div class="container">
+                <div class="right-column">
+                    <div class="table-responsive">
+                        <table class="tableuser" id="urgence-table">
+                            <thead>
+                                <tr>
+                                    
+                                    <th
+                                        class="fw-semibold gray-color"
+                                        style="width: 15%"
+                                    ></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    *ngFor="
+                                        let notification of filteredNotifications
+                                    "
+                                >
+                                    <td>
+                                        <div
+                                            class="user-info d-flex align-items-center"
+                                        >
+                                            <mat-checkbox
+                                                class="fm-checkbox"
+                                            ></mat-checkbox>
+
+                                            <img
+                                                class="imagefill"
+                                                [src]="
+                                                    'http://localhost:8080/api/auth/files/' +
+                                                    notification.photo
+                                                "
+                                                alt="Photo"
+                                            />
+                                            <div class="title">
+                                                <h5 class="fw-semibold mb-5">
+                                                    {{ notification.titre }}
+                                                </h5>
+                                                <div
+                                                    class="d-flex align-items-center"
+                                                >
+                                                    <span
+                                                        class="muted-color"
+                                                        style="
+                                                            margin-right: 20px;
+                                                        "
+                                                    >
+                                                        {{
+                                                            notification.description
+                                                        }},
+                                                        {{ notification.pays }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        
+                                        <div class="d-flex align-items-center">
+                                            <img
+                                                class="imagefill"
+                                                src="assets/img/Edit 1.png"
+                                                alt="Edit Icon"
+                                                style="
+                                                    width: 24px;
+                                                    height: 24px;
+                                                    margin-right: 10px;
+                                                    margin-left: 400px;
+                                                "
+                                                (click)="
+                                                    editNotification(
+                                                        notification.id
+                                                    )
+                                                "
+                                            />
+                                            <img
+                                                class="imagefill"
+                                                src="assets/img/Trash can.png"
+                                                alt="Delete Icon"
+                                                style="
+                                                    width: 24px;
+                                                    height: 24px;
+                                                    cursor: pointer;
+                                                "
+                                                (click)="
+                                                    removeData(notification.id)
+                                                "
+                                            />
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>-->

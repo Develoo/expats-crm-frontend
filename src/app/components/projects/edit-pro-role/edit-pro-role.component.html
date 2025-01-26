@@ -1,0 +1,1282 @@
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between"
+>
+    <h5 class="mb-0">Order Details</h5>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item fw-semibold">Products</li>
+        <li class="breadcrumb-item fw-semibold">Order Details</li>
+    </ol>
+</div>
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+/>
+
+<div class="row omar">
+    <div class="col-lg-4 col-xxl-3">
+        <mat-card class="mb-25 tacking-box tagus-card">
+            <mat-card-header>
+                <!-- <img
+                    src="assets/img/flag/spain.png"
+                    alt="Photo of a Shiba Inu"
+                    style="margin-left: 130px"
+                />-->
+            </mat-card-header>
+
+            <mat-card-content>
+                <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+
+                <!-- Champs d'informations à modifier -->
+
+                <!--  <mat-select
+                            class="select"
+                            [(ngModel)]="user.etat"
+                            (selectionChange)="onChangeEtat(user, $event)"
+                            [ngClass]="{
+                                'select-refuse': user.etat === 'Refusé',
+                                'select-actif': user.etat === 'Actif',
+                                'select-enattente': user.etat === 'En attente'
+                            }"
+                        >
+                            <mat-option
+                                *ngFor="let etat of etats"
+                                [value]="etat"
+                            >
+                                {{ etat }}
+                            </mat-option>
+                        </mat-select>-->
+
+                <mat-select
+                    class="select"
+                    style="
+                        margin-bottom: 31px;
+                        margin-left: 88px;
+                        width: 123px;
+                        height: 39px;
+                    "
+                    [(ngModel)]="user.etat"
+                    (selectionChange)="onChangeEtat($event.value)"
+                    [ngClass]="{
+                        'select-refuse': user.etat === 'Refusé',
+                        'select-actif': user.etat === 'Actif',
+                        'select-enattente': user.etat === 'En attente'
+                    }"
+                >
+                    <mat-option *ngFor="let etat of etats" [value]="etat">
+                        {{ etat }}
+                    </mat-option>
+                </mat-select>
+
+                <!-- Bouton pour soumettre la mise à jour -->
+                <!--  <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+            </mat-card-content>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <!-- Carte pour Secteur Activité -->
+                        <!-- Carte pour Secteur Activité -->
+                        <!-- Conteneur parent -->
+                        <div
+                            style="
+                                display: flex;
+                                justify-content: space-between;
+                                margin-bottom: 40px;
+                            "
+                        >
+                            <!-- Première div -->
+                            <div
+                                style="
+                                    border-radius: var(
+                                        --Border-Radius-4-px,
+                                        4px
+                                    );
+                                    background: var(--blue-gris, #eff5f9);
+                                    padding: 10px 10px;
+                                    width: 49%; /* Ajusté pour correspondre à deux divs côte à côte */
+                                "
+                            >
+                                <div class="align-items-center">
+                                    <!-- Colonne pour le label -->
+                                    <div>
+                                        <mat-label
+                                            style="
+                                                font-weight: 700;
+                                                color: #333;
+                                                text-align: center;
+                                                font-family: Inter;
+                                                font-size: 10px;
+                                                font-style: normal;
+                                                line-height: normal;
+                                            "
+                                            >{{
+                                                editFieldsectcateg[0].label
+                                            }}</mat-label
+                                        >
+                                    </div>
+
+                                    <!-- Colonne pour la valeur ou le champ input -->
+                                    <div>
+                                        <div class="tagus-form-group w-100">
+                                            <!-- Affiche la valeur si on n'est pas en mode édition -->
+                                            <div *ngIf="!isEditingsectcateg">
+                                                <span>
+                                                    {{
+                                                        getFormControl(
+                                                            editFieldsectcateg[0]
+                                                                .name
+                                                        ).value
+                                                    }}
+                                                </span>
+                                            </div>
+
+                                            <!-- Affiche le champ input si on est en mode édition -->
+
+                                            <input
+                                                *ngIf="isEditingsectcateg"
+                                                matInput
+                                                [formControl]="
+                                                    getFormControl(
+                                                        editFieldsectcateg[0]
+                                                            .name
+                                                    )
+                                                "
+                                                [type]="
+                                                    editFieldsectcateg[0].type
+                                                "
+                                                required
+                                                style="
+                                                    margin-top: 5px;
+                                                    width: 130px;
+                                                "
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Deuxième div -->
+                            <div
+                                style="
+                                    border-radius: var(
+                                        --Border-Radius-4-px,
+                                        4px
+                                    );
+                                    background: var(--blue-gris, #eff5f9);
+                                    padding: 10px 10px;
+                                    width: 49%; /* Ajusté pour correspondre à deux divs côte à côte */
+                                "
+                            >
+                                <div class="row align-items-center">
+                                    <!-- Colonne pour le label -->
+                                    <div
+                                        class="col-lg-8 col-md-3 col-sm-3"
+                                        style="
+                                            margin-top: 0px;
+                                            margin-left: 34px;
+                                        "
+                                    >
+                                        <mat-label>{{
+                                            editFieldsectcateg[1].label
+                                        }}</mat-label>
+                                    </div>
+
+                                    <!-- Colonne pour la valeur ou le champ input -->
+                                    <div
+                                        class="col-lg-4 col-md-7 col-sm-7 d-flex"
+                                    >
+                                        <div class="tagus-form-group w-100">
+                                            <!-- Affiche la valeur si on n'est pas en mode édition -->
+                                            <span
+                                                style="margin-left: 35px"
+                                                *ngIf="!isEditingsectcateg"
+                                            >
+                                                {{
+                                                    getFormControl(
+                                                        editFieldsectcateg[1]
+                                                            .name
+                                                    ).value
+                                                }}
+                                            </span>
+
+                                            <!-- Affiche le champ input si on est en mode édition -->
+                                            <input
+                                                *ngIf="isEditingsectcateg"
+                                                matInput
+                                                [formControl]="
+                                                    getFormControl(
+                                                        editFieldsectcateg[1]
+                                                            .name
+                                                    )
+                                                "
+                                                [type]="
+                                                    editFieldsectcateg[1].type
+                                                "
+                                                required
+                                                style="
+                                                    margin-top: 5px;
+                                                    width: 130px;
+                                                "
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditsectcateg()">
+                        {{ isEditingsectcateg ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <!-- <td class="gray-color">
+                <mat-card-content>
+                    <div>
+                        <mat-select
+                            class="select"
+                            [(ngModel)]="data.etat"
+                            (selectionChange)="onChangeEtat(data, $event)"
+                            [ngClass]="{
+                                'select-refuse': user.etat === 'Refusé',
+                                'select-actif': user.etat === 'Actif',
+                                'select-enattente': user.etat === 'En attente'
+                            }"
+                        >
+                            <mat-option
+                                *ngFor="let etat of etats"
+                                [value]="etat"
+                            >
+                                {{ etat }}
+                            </mat-option>
+                        </mat-select>
+                    </div>
+                </mat-card-content>
+            </td>-->
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Coordonnées de l’entreprise
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFields"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-5 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+                                    text-align: justify;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditing">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche le champ input si on est en mode édition -->
+                                    <input
+                                        *ngIf="isEditing"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+
+                    <button class="btn" (click)="toggleEdit()">
+                        {{ isEditing ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Localisation
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldsloca"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-5 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+                                    text-align: justify;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditingloca">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche le champ input si on est en mode édition -->
+                                    <input
+                                        *ngIf="isEditingloca"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditloca()">
+                        {{ isEditingloca ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Informations légales
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldsinflegale"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-5 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+                                    text-align: justify;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditinginflegale">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche le champ input si on est en mode édition -->
+                                    <input
+                                        *ngIf="isEditinginflegale"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditinflegale()">
+                        {{ isEditinginflegale ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Personne de contact
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldsperscont"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-5 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+                                    text-align: justify;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditingperscont">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche le champ input si on est en mode édition -->
+                                    <input
+                                        *ngIf="isEditingperscont"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditperscont()">
+                        {{ isEditingperscont ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Services aux expatriés
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldsserviexpat"
+                            style="margin-bottom: 15px"
+                        >
+                            <div class="col-lg-12 col-md-3 col-sm-3">
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditingserviexpat">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche le champ input si on est en mode édition -->
+                                    <input
+                                        *ngIf="isEditingserviexpat"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditserviexpat()">
+                        {{ isEditingserviexpat ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Parrainage
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldsparr"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-5 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+                                    text-align: justify;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditingparr">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche le champ input si on est en mode édition -->
+                                    <input
+                                        *ngIf="isEditingparr"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditparr()">
+                        {{ isEditingparr ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Modalités de paiement
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldsmodapaiem"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-5 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+                                    text-align: justify;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                {{ field.label }}
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <span *ngIf="!isEditingmodapaiem">
+                                        {{ getMoyenPayementNom(field.name) }}
+                                    </span>
+                                    <ng-container *ngIf="isEditingmodapaiem">
+                                        <ng-container
+                                            *ngFor="
+                                                let moyen of moyensPayementOptions
+                                            "
+                                        >
+                                            <mat-checkbox
+                                                [checked]="
+                                                    isMoyenPayementSelected(
+                                                        moyen
+                                                    )
+                                                "
+                                                (change)="
+                                                    onMoyenPayementChange(moyen)
+                                                "
+                                            >
+                                                <div style="display: block">
+                                                    {{ moyen.nom }}
+                                                </div>
+                                            </mat-checkbox>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditmodapaiem()">
+                        {{ isEditingmodapaiem ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Livraison
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldslivraison"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-5 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+                                    text-align: justify;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditinglivraison">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche les boutons radio si on est en mode édition -->
+                                    <div *ngIf="isEditinglivraison">
+                                        <mat-radio-group
+                                            [formControl]="
+                                                getFormControl(field.name)
+                                            "
+                                        >
+                                            <mat-radio-button [value]="'Oui'"
+                                                >Oui</mat-radio-button
+                                            >
+                                            <mat-radio-button [value]="'Non'"
+                                                >Non</mat-radio-button
+                                            >
+                                        </mat-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldslivraisons"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-5 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+                                    text-align: justify;
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditinglivraison">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche le champ input si on est en mode édition -->
+                                    <input
+                                        *ngIf="isEditinglivraison"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditlivraison()">
+                        {{ isEditinglivraison ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Campagnes marketing
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldscompagnmark"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-6 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-6 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditingcompagnmark">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche les boutons radio si on est en mode édition -->
+                                    <div *ngIf="isEditingcompagnmark">
+                                        <mat-radio-group
+                                            [formControl]="
+                                                getFormControl(field.name)
+                                            "
+                                        >
+                                            <mat-radio-button [value]="'Oui'"
+                                                >Oui</mat-radio-button
+                                            >
+                                            <mat-radio-button [value]="'Non'"
+                                                >Non</mat-radio-button
+                                            >
+                                        </mat-radio-group>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldscompagnmarks"
+                            style="margin-bottom: 15px"
+                        >
+                            <div
+                                class="col-lg-6 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-6 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <span *ngIf="!isEditingcompagnmark">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <input
+                                        *ngIf="isEditingcompagnmark"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldscompagnSouhait"
+                        >
+                            <div
+                                class="col-lg-6 col-md-3 col-sm-3"
+                                style="
+                                    color: #000;
+
+                                    font-family: Inter;
+                                    font-size: 14px;
+                                    font-style: normal;
+                                    font-weight: 600;
+                                    line-height: 14px;
+                                "
+                            >
+                                {{ field.label }}
+                            </div>
+                            <div class="col-lg-6 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <span *ngIf="!isEditingcompagnmark">
+                                        {{ getCompagnSouhaitNom(field.name) }}
+                                    </span>
+                                    <ng-container *ngIf="isEditingcompagnmark">
+                                        <ng-container
+                                            *ngFor="
+                                                let compagnsouh of compagnSouhaitOptions
+                                            "
+                                        >
+                                            <mat-checkbox
+                                                [checked]="
+                                                    isCompagnSouhaitSelected(
+                                                        compagnsouh
+                                                    )
+                                                "
+                                                (change)="
+                                                    onCompagnSouhaitChange(
+                                                        compagnsouh
+                                                    )
+                                                "
+                                            >
+                                                <div style="display: block">
+                                                    {{ compagnsouh.nom }}
+                                                </div>
+                                            </mat-checkbox>
+                                        </ng-container>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditcompagnmark()">
+                        {{ isEditingcompagnmark ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Commentaire personnel
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <!--  <h5 id="targetRed">Modifier un numéro d'urgence</h5>-->
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFieldscommentperso"
+                            style="margin-bottom: 15px"
+                        >
+                            <div class="col-lg-12 col-md-3 col-sm-3">
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <!-- Affiche le label si on n'est pas en mode édition -->
+                                    <span *ngIf="!isEditingcommentperso">{{
+                                        getFormControl(field.name).value
+                                    }}</span>
+
+                                    <!-- Affiche le champ input si on est en mode édition -->
+                                    <input
+                                        *ngIf="isEditingcommentperso"
+                                        matInput
+                                        [formControl]="
+                                            getFormControl(field.name)
+                                        "
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <!-- <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>-->
+                    <button class="btn" (click)="toggleEditcommentperso()">
+                        {{ isEditingcommentperso ? "Sauvegarder" : "Modifier" }}
+                    </button>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="col-lg-8 mb-25 tagus-card">
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">New Email</h5>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>To</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Subject</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div class="tagus-form-group mb-20">
+                    <quill-editor
+                        [styles]="{ height: '250px' }"
+                        (onFocus)="focus($event)"
+                        (onEditorChanged)="changedEditor($event)"
+                        (onBlur)="blur($event)"
+                        (onEditorCreated)="created($event)"
+                    ></quill-editor>
+                </div>
+                <div class="tagus-form-group">
+                    <input type="file" />
+                </div>
+                <div class="btn-box">
+                    <button mat-flat-button class="tagus">Send</button>
+                    <button mat-flat-button color="warn">Discard</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card-header class="border-bottom">
+            <h5
+                class="mb-0"
+                style="
+                    margin-top: 50px;
+                    font-size: 20px !important;
+                    font-family: inter !important;
+                    color: #333333;
+                "
+            >
+                Activités récentes
+            </h5>
+        </mat-card-header>
+
+        <mat-card
+            class="mb-25 tagus-card"
+            [class.component-dark-theme]="themeService.isDark()"
+        >
+            <mat-card-content>
+                <div class="mat-elevation-z8 tagus-mat-table">
+                    <table
+                        mat-table
+                        [dataSource]="dataSource"
+                        matSort
+                        (matSortChange)="announceSortChange($event)"
+                    >
+                        <ng-container matColumnDef="name">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                mat-sort-header
+                                class="left-align"
+                            >
+                                Activités récentes
+                            </th>
+                            <td
+                                mat-cell
+                                *matCellDef="let ColumnChangeLog"
+                                class="left-align"
+                            >
+                                a changé {{ ColumnChangeLog.column_name }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="time_diff">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                class="left-align"
+                            >
+                                Temps écoulé
+                            </th>
+                            <td
+                                mat-cell
+                                *matCellDef="let ColumnChangeLog"
+                                class="left-align"
+                            >
+                                {{ ColumnChangeLog.time_diff }}
+                            </td>
+                        </ng-container>
+
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns"
+                        ></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"
+                        ></tr>
+                    </table>
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a
+                                    class="page-link"
+                                    (click)="goToPage(paginator.pageIndex - 1)"
+                                    aria-label="Previous"
+                                >
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li
+                                class="page-item"
+                                *ngFor="
+                                    let page of getPaginationNumbers();
+                                    let i = index
+                                "
+                                [class.active]="paginator.pageIndex === i"
+                            >
+                                <a class="page-link" (click)="goToPage(i)">{{
+                                    i + 1
+                                }}</a>
+                            </li>
+                            <li class="page-item">
+                                <a
+                                    class="page-link"
+                                    (click)="goToPage(paginator.pageIndex + 1)"
+                                    aria-label="Next"
+                                >
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <mat-paginator
+                    [pageSizeOptions]="[2, 10, 20]"
+                    showFirstLastButtons
+                ></mat-paginator>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

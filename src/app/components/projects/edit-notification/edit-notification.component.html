@@ -1,0 +1,110 @@
+<div style="background-color: #eff5f9">
+    <div
+        style="
+            max-width: 1200px;
+            margin: auto;
+            background-color: #eff5f9;
+            height: 50px;
+        "
+    ></div>
+</div>
+
+<div class="row omar">
+    <div class="col-lg-3 mb-25 tagus-card"></div>
+    <div class="col-lg-9 mb-25 tagus-card">
+        <mat-card class="card2">
+            <!-- Formulaire pour l'édition du numéro d'urgence -->
+            <form [formGroup]="editForm" (ngSubmit)="onUpdate()" novalidate>
+                <h5 id="targetRed">Modifier un numéro d'urgence</h5>
+                <div class="bg-card">
+                    <!-- Champs d'informations à modifier -->
+                    <div
+                        class="row align-items-center"
+                        *ngFor="let field of editFields"
+                    >
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>{{ field.label }}</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <input
+                                        matInput
+                                        [formControlName]="field.name"
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sélection du pays -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Pays</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select
+                                        [formControlName]="'pays'"
+                                        name="pays"
+                                    >
+                                        <mat-option value="tunis"
+                                            >Tunis</mat-option
+                                        >
+                                        <mat-option value="france"
+                                            >France</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sélection du categorie -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Categorie</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select [formControlName]="'categorie'">
+                                        <mat-option value="Offre spéciale"
+                                            >Offre spéciale</mat-option
+                                        >
+                                        <mat-option value="Produit"
+                                            >Produit</mat-option
+                                        >
+                                        <mat-option value="Article"
+                                            >Article</mat-option
+                                        >
+                                        <mat-option value="Evènement "
+                                            >Evènement
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Champ pour le téléchargement de fichiers -->
+                    <div class="form-group">
+                        <label>Charger une nouvelle image (optionnel)</label>
+                        <input
+                            class="form-control"
+                            type="file"
+                            (change)="selectFiles($event)"
+                            multiple
+                        />
+                    </div>
+                </div>
+
+                <!-- Bouton pour soumettre la mise à jour -->
+                <button mat-raised-button type="submit">Mettre à jour</button>
+            </form>
+        </mat-card>
+    </div>
+</div>

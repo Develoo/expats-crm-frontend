@@ -1,0 +1,1386 @@
+<div style="background-color: #eff5f9">
+    <div
+        style="
+            max-width: 1200px;
+            margin: auto;
+            background-color: #eff5f9;
+            height: 50px;
+        "
+    ></div>
+</div>
+
+<div class="row omar">
+    <div class="col-lg-3 mb-25 tagus-card"></div>
+    <div class="col-lg-9 mb-25 tagus-card">
+        <mat-card class="card2">
+            <!-- Formulaire pour l'édition du numéro d'urgence -->
+            <form [formGroup]="editForm" (ngSubmit)="saveChanges()" novalidate>
+                <h5 id="targetRed">Modifier un numéro d'urgence</h5>
+                <div class="bg-card">
+                    <!-- Champs d'informations à modifier -->
+                    <div
+                        class="row align-items-center"
+                        *ngFor="let field of editFields"
+                    >
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>{{ field.label }}</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <input
+                                        matInput
+                                        [formControlName]="field.name"
+                                        [type]="field.type"
+                                        required
+                                    />
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sélection du pays -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Pays</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select
+                                        [formControlName]="'pays'"
+                                        name="pays"
+                                    >
+                                        <mat-option value="tunis"
+                                            >Tunis</mat-option
+                                        >
+                                        <mat-option value="france"
+                                            >France</mat-option
+                                        >
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sélection du categorie -->
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <mat-label>Categorie</mat-label>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                            <div class="tagus-form-group w-100">
+                                <mat-form-field appearance="fill" class="w-100">
+                                    <mat-select [formControlName]="'categorie'">
+                                        <mat-option value="Offre spéciale"
+                                            >Offre spéciale</mat-option
+                                        >
+                                        <mat-option value="Produit"
+                                            >Produit</mat-option
+                                        >
+                                        <mat-option value="Article"
+                                            >Article</mat-option
+                                        >
+                                        <mat-option value="Evènement "
+                                            >Evènement
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Champ pour le téléchargement de fichiers -->
+                    <!-- <div class="form-group">
+                        <label>Charger une nouvelle image (optionnel)</label>
+                        <input
+                            class="form-control"
+                            type="file"
+                            (change)="selectFiles($event)"
+                            multiple
+                        />
+                    </div>-->
+                </div>
+
+                <!-- Bouton pour soumettre la mise à jour -->
+                <button mat-raised-button type="submit">Mettre à jour</button>
+            </form>
+        </mat-card>
+    </div>
+</div>
+
+<div
+    class="breadcrumb-card mb-25 d-md-flex align-items-center justify-content-space-between"
+>
+    <h5 class="mb-0">Order Details</h5>
+    <ol class="breadcrumb mb-0 ps-0">
+        <li class="breadcrumb-item">
+            <a routerLink="/">
+                <i class="ri-home-8-line"></i>
+                Dashboard
+            </a>
+        </li>
+        <li class="breadcrumb-item fw-semibold">Products</li>
+        <li class="breadcrumb-item fw-semibold">Order Details</li>
+    </ol>
+</div>
+<link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+/>
+
+<div class="row omar">
+    <div class="col-lg-3 col-xxl-3">
+        <mat-card class="mb-25 tacking-box tagus-card">
+            <mat-card-header>
+                <img
+                    src="assets/img/flag/spain.png"
+                    alt="Photo of a Shiba Inu"
+                    style="margin-left: 130px"
+                />
+            </mat-card-header>
+
+            <ul
+                class="track-list ps-0 mb-0"
+                *ngIf="user; else noUser"
+                style="margin-top: -10px; margin-left: 90px"
+            >
+                <li>
+                    <h5
+                        class="mb-0"
+                        style="
+                            font-size: 20px !important;
+                            font-family: inter !important;
+                            color: #101828;
+                            display: inline;
+                            margin-left: -40px; /* Ajuste cet espace selon vos besoins */
+                            padding-right: 0px; /* Assurez-vous qu'il n'y a pas de padding supplémentaire */
+                        "
+                    >
+                        {{ user.nom }} {{ user.prenom }}
+                    </h5>
+                </li>
+
+                <li
+                    style="
+                        font-size: 10px !important;
+                        font-family: inter !important;
+                        color: #101828;
+                        display: inline;
+                        margin-left: -40px; /* Ajuste cet espace selon vos besoins */
+                        padding-right: 0px; /* Assurez-vous qu'il n'y a pas de padding supplémentaire */
+                    "
+                ></li>
+            </ul>
+            <ng-template #noUser>
+                <p>Aucun utilisateur trouvé</p>
+            </ng-template>
+            <ul class="track-list ps-0 mb-0">
+                <li></li>
+            </ul>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Information de compte
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <form
+                    [formGroup]="editForm"
+                    (ngSubmit)="saveChanges()"
+                    novalidate
+                >
+                    <h5 id="targetRed">Modifier un numéro d'urgence</h5>
+                    <div class="bg-card">
+                        <!-- Champs d'informations à modifier -->
+                        <div
+                            class="row align-items-center"
+                            *ngFor="let field of editFields"
+                        >
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <mat-label>{{ field.label }}</mat-label>
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7 d-flex">
+                                <div class="tagus-form-group w-100">
+                                    <mat-form-field
+                                        appearance="fill"
+                                        class="w-100"
+                                    >
+                                        <input
+                                            matInput
+                                            [formControlName]="field.name"
+                                            [type]="field.type"
+                                            required
+                                        />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <ul class="track-list ps-0 mb-0" *ngIf="field">
+                                <li class="position-relative">
+                                    <h5
+                                        class="mb-10 fw-semibold"
+                                        style="
+                                            display: inline;
+                                            font-size: 15px !important;
+                                            font-family: inter !important;
+                                            color: #000000;
+                                        "
+                                    >
+                                        Nom d'utilisateurs:
+                                    </h5>
+                                    <ng-container
+                                        *ngIf="!isEditingg; else editUsername"
+                                    >
+                                        <span
+                                            style="
+                                                display: inline;
+                                                font-size: 15px !important;
+                                                font-family: inter !important;
+                                                color: #333333;
+                                            "
+                                            >{{ field.label }}</span
+                                        >
+                                    </ng-container>
+                                    <ng-template #editUsername>
+                                        <input
+                                            style="
+                                                display: inline;
+                                                font-size: 15px !important;
+                                                font-family: inter !important;
+                                                color: #333333;
+                                            "
+                                        />
+                                    </ng-template>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Bouton pour soumettre la mise à jour -->
+                    <button mat-raised-button type="submit">
+                        Mettre à jour
+                    </button>
+                </form>
+                <!--  <ul class="track-list ps-0 mb-0" *ngIf="user">
+                    <li class="position-relative">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Nom d'utilisateur:
+                        </h5>
+                        <ng-container *ngIf="!isEditingg; else editUsername">
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.username }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editUsername>
+                            <input
+                                [(ngModel)]="user.username"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Adresse email:
+                        </h5>
+                        <ng-container *ngIf="!isEditingg; else editEmail">
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.email }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editEmail>
+                            <input
+                                [(ngModel)]="user.email"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Téléphone:
+                        </h5>
+                        <ng-container *ngIf="!isEditingg; else editTele">
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.numtele }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editTele>
+                            <input
+                                [(ngModel)]="user.numtele"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            WhatsApp:
+                        </h5>
+                        <ng-container *ngIf="!isEditingg; else editWhatsApp">
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.numwhats }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editWhatsApp>
+                            <input
+                                [(ngModel)]="user.numwhats"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+                </ul>-->
+
+                <img
+                    src="assets/img/editpng.png"
+                    style="width: 16px; margin-right: 8px; margin-top: 20px"
+                    (click)="toggleEditt()"
+                />
+                {{ isEditingg ? "Sauvegarder" : "Modifier" }}
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Informations générales
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <ul class="track-list ps-0 mb-0" *ngIf="user">
+                    <li class="position-relative">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Genre:
+                        </h5>
+                        <ng-container *ngIf="!isEditinginfgen; else editgenre">
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.genre }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editgenre>
+                            <input
+                                [(ngModel)]="user.genre"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Date de naissance :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditinginfgen; else editdatenaiss"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.datenaiss }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editdatenaiss>
+                            <input
+                                [(ngModel)]="user.datenaiss"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Statut matrimonial :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditinginfgen; else editstat_matrim"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.stat_matrim }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editstat_matrim>
+                            <input
+                                [(ngModel)]="user.stat_matrim"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Nombre d’enfants :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditinginfgen; else editnbr_enf"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.nbr_enf }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editnbr_enf>
+                            <input
+                                [(ngModel)]="user.nbr_enf"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Pays de résidence :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditinginfgen; else editpays_resid"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.pays_resid }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editpays_resid>
+                            <input
+                                [(ngModel)]="user.pays_resid"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            ville :
+                        </h5>
+                        <ng-container *ngIf="!isEditinginfgen; else editville">
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.ville }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editville>
+                            <input
+                                [(ngModel)]="user.ville"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Profession actuelle :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditinginfgen; else editprof_act"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.prof_act }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editprof_act>
+                            <input
+                                [(ngModel)]="user.prof_act"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Secteur d’activité :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditinginfgen; else editsect_act"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.sect_act }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editsect_act>
+                            <input
+                                [(ngModel)]="user.sect_act"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Employeur actuel :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditinginfgen; else editemp_act"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.emp_act }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editemp_act>
+                            <input
+                                [(ngModel)]="user.emp_act"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li
+                        class="position-relative"
+                        *ngFor="let langue of user.userLangues"
+                    >
+                        <h5 class="mb-10 fw-semibold">Langues:</h5>
+                        <ng-container *ngIf="!isEditinginfgen; else editLangue">
+                            <span>{{ langue.langue.nom }}</span>
+                        </ng-container>
+                        <ng-template #editLangue>
+                            <select [(ngModel)]="langue.langue.id">
+                                <option
+                                    *ngFor="let availableLangue of languages"
+                                    [value]="availableLangue.id"
+                                >
+                                    {{ availableLangue.nom }}
+                                </option>
+                            </select>
+                        </ng-template>
+
+                        <h5 class="mb-10 fw-semibold">Niveau de compétence:</h5>
+                        <ng-container *ngIf="!isEditinginfgen; else editNvComp">
+                            <span>{{ langue.nv_comp }}</span>
+                        </ng-container>
+                        <ng-template #editNvComp>
+                            <input [(ngModel)]="langue.nv_comp" />
+                        </ng-template>
+                    </li>
+
+                    <li
+                        class="position-relative"
+                        *ngFor="let reseau of user.userReseauSocieaux"
+                    >
+                        <h5 class="mb-10 fw-semibold">tesssssttt</h5>
+
+                        <ng-container
+                            *ngIf="!isEditinginfgen; else editReseauSociaux"
+                        >
+                            <span>{{ reseau.reseauSociaux.nom }}</span>
+                        </ng-container>
+
+                        <ng-template #editReseauSociaux>
+                            <select [(ngModel)]="reseau.reseauSociaux.id">
+                                <option
+                                    *ngFor="
+                                        let availableReseau of reseausociaux
+                                    "
+                                    [value]="availableReseau.id"
+                                >
+                                    {{ availableReseau.nom }}
+                                </option>
+                            </select>
+                        </ng-template>
+
+                        <h5 class="mb-10 fw-semibold">Lien:</h5>
+
+                        <ng-container *ngIf="!isEditinginfgen; else editLien">
+                            <span>{{ reseau.lien }}</span>
+                        </ng-container>
+
+                        <ng-template #editLien>
+                            <input [(ngModel)]="reseau.lien" />
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <img
+                    src="assets/img/editpng.png"
+                    style="width: 16px; margin-right: 8px; margin-top: 20px"
+                    (click)="toggleEditinfgen()"
+                />
+                {{ isEditingg ? "Sauvegarder" : "Modifierrrr" }}
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Expérience d’expatrié
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <ul class="track-list ps-0 mb-0" *ngIf="user">
+                    <li class="position-relative">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Nombre de pays où j’ai été expatriés :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditingexper; else editnbr_pays_expat"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.nbr_pays_expat }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editnbr_pays_expat>
+                            <input
+                                [(ngModel)]="user.nbr_pays_expat"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative" style="margin-top: -25px">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Je suis expatrié depuis :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditingexper; else editexpat_depui"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.expat_depui }}</span
+                            >
+                        </ng-container>
+                        <ng-template #editexpat_depui>
+                            <input
+                                [(ngModel)]="user.expat_depui"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            />
+                        </ng-template>
+                    </li>
+
+                    <li
+                        class="position-relative"
+                        *ngFor="let raison of user.userRaisonExpat"
+                    >
+                        <h5 class="mb-10 fw-semibold">
+                            Raison d'expatriation:
+                        </h5>
+
+                        <ng-container
+                            *ngIf="!isEditingexper; else editRaisonExpat"
+                        >
+                            <span>{{ raison.raisonexpat }}</span>
+                        </ng-container>
+
+                        <ng-template #editRaisonExpat>
+                            <select [(ngModel)]="raison.raisonexpat">
+                                <option
+                                    *ngFor="
+                                        let availableRaison of raisonOptions
+                                    "
+                                    [value]="availableRaison"
+                                >
+                                    {{ availableRaison }}
+                                </option>
+                            </select>
+                        </ng-template>
+                    </li>
+
+                    <li
+                        class="position-relative"
+                        *ngFor="let centreInteret of user.centreInterets"
+                    >
+                        <h5 class="mb-10 fw-semibold">Centre d'intérêt:</h5>
+
+                        <ng-container
+                            *ngIf="!isEditingexper; else editCentreInteret"
+                        >
+                            <span>{{ centreInteret.nom }}</span>
+                        </ng-container>
+
+                        <ng-template #editCentreInteret>
+                            <select [(ngModel)]="centreInteret.id">
+                                <option
+                                    *ngFor="
+                                        let availableCentreInteret of centreinterets
+                                    "
+                                    [value]="availableCentreInteret.id"
+                                >
+                                    {{ availableCentreInteret.nom }}
+                                </option>
+                            </select>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <img
+                    src="assets/img/editpng.png"
+                    style="width: 16px; margin-right: 8px; margin-top: 20px"
+                    (click)="toggleEditexper()"
+                />
+                {{ isEditingg ? "Sauvegarder" : "Modifier" }}
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Préférence
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <ul class="track-list ps-0 mb-0" *ngIf="user">
+                    <li
+                        class="position-relative"
+                        *ngFor="let centreInteret of user.centreInterets"
+                    >
+                        <h5 class="mb-10 fw-semibold">Centre d'intérêt:</h5>
+
+                        <ng-container
+                            *ngIf="!isEditingpref; else editCentreInteret"
+                        >
+                            <span>{{ centreInteret.nom }}</span>
+                        </ng-container>
+
+                        <ng-template #editCentreInteret>
+                            <select [(ngModel)]="centreInteret.id">
+                                <option
+                                    *ngFor="
+                                        let availableCentreInteret of centreinterets
+                                    "
+                                    [value]="availableCentreInteret.id"
+                                >
+                                    {{ availableCentreInteret.nom }}
+                                </option>
+                            </select>
+                        </ng-template>
+                    </li>
+
+                    <li
+                        class="position-relative"
+                        *ngFor="
+                            let service of user.servicesRechercheSurPlatform
+                        "
+                    >
+                        <h5 class="mb-10 fw-semibold">
+                            Services recherchés sur la plateforme :
+                        </h5>
+
+                        <ng-container *ngIf="!isEditingpref; else editService">
+                            <span>{{ service.nom }}</span>
+                        </ng-container>
+
+                        <ng-template #editService>
+                            <select [(ngModel)]="service.id">
+                                <option
+                                    *ngFor="
+                                        let availableService of servicerecherplat
+                                    "
+                                    [value]="availableService.id"
+                                >
+                                    {{ availableService.nom }}
+                                </option>
+                            </select>
+                        </ng-template>
+                    </li>
+
+                    <li
+                        class="position-relative"
+                        *ngFor="let marque of user.marquesPreferees"
+                    >
+                        <h5 class="mb-10 fw-semibold">Marques Préférées :</h5>
+
+                        <ng-container *ngIf="!isEditingpref; else editMarque">
+                            <span>{{ marque.nom }}</span>
+                        </ng-container>
+
+                        <ng-template #editMarque>
+                            <select [(ngModel)]="marque.id">
+                                <option
+                                    *ngFor="
+                                        let availableMarque of marqueprefere
+                                    "
+                                    [value]="availableMarque.id"
+                                >
+                                    {{ availableMarque.nom }}
+                                </option>
+                            </select>
+                        </ng-template>
+                    </li>
+
+                    <li class="position-relative">
+                        <h5
+                            class="mb-10 fw-semibold"
+                            style="
+                                display: inline;
+                                font-size: 15px !important;
+                                font-family: inter !important;
+                                color: #000000;
+                            "
+                        >
+                            Autorisations et Consentements :
+                        </h5>
+                        <ng-container
+                            *ngIf="!isEditingpref; else editautoris_consent"
+                        >
+                            <span
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                                >{{ user.autoris_consent }}</span
+                            >
+                        </ng-container>
+
+                        <ng-template #editautoris_consent>
+                            <select
+                                [(ngModel)]="user.autoris_consent"
+                                style="
+                                    display: inline;
+                                    font-size: 15px !important;
+                                    font-family: inter !important;
+                                    color: #333333;
+                                "
+                            >
+                                <option value="accepter">Accepter</option>
+                                <option value="refuser">Refuser</option>
+                            </select>
+                        </ng-template>
+                    </li>
+
+                    <li
+                        class="position-relative"
+                        *ngFor="let communi of user.userPreferCommuni"
+                    >
+                        <h5 class="mb-10 fw-semibold">
+                            Préférences de Communication :
+                        </h5>
+
+                        <ng-container *ngIf="!isEditingpref; else editCommuni">
+                            <span>{{ communi.prefercommuni }}</span>
+                        </ng-container>
+
+                        <ng-template #editCommuni>
+                            <select [(ngModel)]="communi.prefercommuni">
+                                <option
+                                    *ngFor="let option of preferCommuniOptions"
+                                    [value]="option"
+                                >
+                                    {{ option }}
+                                </option>
+                            </select>
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <img
+                    src="assets/img/editpng.png"
+                    style="width: 16px; margin-right: 8px; margin-top: 20px"
+                    (click)="toggleEditprefer()"
+                />
+                {{ isEditingg ? "Sauvegarder" : "Modifier" }}
+            </mat-card-content>
+
+            <mat-card-header class="border-bottom" style="margin-top: 20px">
+                <h5
+                    class="mb-0"
+                    style="
+                        font-size: 20px !important;
+                        font-family: inter !important;
+                        color: #333333;
+                    "
+                >
+                    Réseaux sociaux
+                </h5>
+            </mat-card-header>
+
+            <mat-card-content>
+                <ul class="track-list ps-0 mb-0" *ngIf="user">
+                    <li
+                        class="position-relative"
+                        *ngFor="let reseau of user.userReseauSocieaux"
+                    >
+                        <h5 class="mb-10 fw-semibold">tesssssttt</h5>
+                        <ng-container
+                            *ngIf="!isEditingresesocia; else editReseauSociaux"
+                        >
+                            <span>{{ reseau.reseauSociaux.nom }}</span>
+                        </ng-container>
+
+                        <ng-template #editReseauSociaux>
+                            <select [(ngModel)]="reseau.reseauSociaux.id">
+                                <option
+                                    *ngFor="
+                                        let availableReseau of reseausociaux
+                                    "
+                                    [value]="availableReseau.id"
+                                >
+                                    {{ availableReseau.nom }}
+                                </option>
+                            </select>
+                        </ng-template>
+
+                        <h5 class="mb-10 fw-semibold">Lien:</h5>
+
+                        <ng-container
+                            *ngIf="!isEditingresesocia; else editLien"
+                        >
+                            <span>{{ reseau.lien }}</span>
+                        </ng-container>
+
+                        <ng-template #editLien>
+                            <input [(ngModel)]="reseau.lien" />
+                        </ng-template>
+                    </li>
+                </ul>
+
+                <img
+                    src="assets/img/editpng.png"
+                    style="width: 16px; margin-right: 8px; margin-top: 20px"
+                    (click)="toggleEditresesocia()"
+                />
+                {{ isEditingg ? "Sauvegarder" : "Modifier" }}
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div class="col-lg-9 mb-25 tagus-card">
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">New Email</h5>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>To</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div class="tagus-form-group without-icon">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Subject</mat-label>
+                        <input matInput />
+                    </mat-form-field>
+                </div>
+                <div class="tagus-form-group mb-20">
+                    <quill-editor
+                        [styles]="{ height: '250px' }"
+                        (onFocus)="focus($event)"
+                        (onEditorChanged)="changedEditor($event)"
+                        (onBlur)="blur($event)"
+                        (onEditorCreated)="created($event)"
+                    ></quill-editor>
+                </div>
+                <div class="tagus-form-group">
+                    <input type="file" />
+                </div>
+                <div class="btn-box">
+                    <button mat-flat-button class="tagus">Send</button>
+                    <button mat-flat-button color="warn">Discard</button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card-header class="border-bottom">
+            <h5
+                class="mb-0"
+                style="
+                    margin-top: 50px;
+                    font-size: 20px !important;
+                    font-family: inter !important;
+                    color: #333333;
+                "
+            >
+                Activités récentes
+            </h5>
+        </mat-card-header>
+
+        <mat-card
+            class="mb-25 tagus-card"
+            [class.component-dark-theme]="themeService.isDark()"
+        >
+            <mat-card-content>
+                <div class="mat-elevation-z8 tagus-mat-table">
+                    <table
+                        mat-table
+                        [dataSource]="dataSource"
+                        matSort
+                        (matSortChange)="announceSortChange($event)"
+                    >
+                        <ng-container matColumnDef="name">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                mat-sort-header
+                                class="left-align"
+                            >
+                                Activités récentes
+                            </th>
+                            <td
+                                mat-cell
+                                *matCellDef="let ColumnChangeLog"
+                                class="left-align"
+                            >
+                                a changé {{ ColumnChangeLog.column_name }}
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="time_diff">
+                            <th
+                                mat-header-cell
+                                *matHeaderCellDef
+                                class="left-align"
+                            >
+                                Temps écoulé
+                            </th>
+                            <td
+                                mat-cell
+                                *matCellDef="let ColumnChangeLog"
+                                class="left-align"
+                            >
+                                {{ ColumnChangeLog.time_diff }}
+                            </td>
+                        </ng-container>
+
+                        <tr
+                            mat-header-row
+                            *matHeaderRowDef="displayedColumns"
+                        ></tr>
+                        <tr
+                            mat-row
+                            *matRowDef="let row; columns: displayedColumns"
+                        ></tr>
+                    </table>
+
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a
+                                    class="page-link"
+                                    (click)="goToPage(paginator.pageIndex - 1)"
+                                    aria-label="Previous"
+                                >
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li
+                                class="page-item"
+                                *ngFor="
+                                    let page of getPaginationNumbers();
+                                    let i = index
+                                "
+                                [class.active]="paginator.pageIndex === i"
+                            >
+                                <a class="page-link" (click)="goToPage(i)">{{
+                                    i + 1
+                                }}</a>
+                            </li>
+                            <li class="page-item">
+                                <a
+                                    class="page-link"
+                                    (click)="goToPage(paginator.pageIndex + 1)"
+                                    aria-label="Next"
+                                >
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <mat-paginator
+                    [pageSizeOptions]="[2, 10, 20]"
+                    showFirstLastButtons
+                ></mat-paginator>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

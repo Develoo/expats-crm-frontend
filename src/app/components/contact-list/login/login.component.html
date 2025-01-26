@@ -1,0 +1,271 @@
+<div
+    class="h-100vh pt-50 pb-50"
+    [class.component-dark-theme]="themeService.isDark()"
+    [class.card-borderd-theme]="themeService.isCardBorder()"
+    [class.card-border-radius]="themeService.isCardBorderRadius()"
+    [class.component-rtl-enabled]="themeService.isRTLEnabled()"
+>
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="tagus-form ms-auto me-auto">
+                <!--<div class="title">
+                    <div class="d-flex mb-10 align-items-center">
+                        <h2 class="mb-0 me-30">Get Started</h2>
+                        <img src="assets/img/logo-icon.png" alt="logo-icon" />
+                    </div>
+                    <p>
+                        Don’t have an account? erfref
+                        <a
+                            routerLink="/authentication/register"
+                            class="main-color fw-medium"
+                            >Register now!</a
+                        >
+                    </p>
+                </div>-->
+                <form
+                    *ngIf="!isLoggedIn"
+                    name="form"
+                    (ngSubmit)="f.form.valid && onSubmit()"
+                    #f="ngForm"
+                    novalidate
+                >
+                    <div
+                        class="login-with-socials d-md-flex align-items-center justify-content-space-between"
+                    >
+                        <!-- <button
+                            mat-flat-button
+                            class="gray fw-semibold d-block me-5"
+                        >
+                            <img
+                                src="assets/img/icon/google.png"
+                                alt="google"
+                            />
+                            Login with Google
+                        </button>
+                        <button
+                            mat-flat-button
+                            class="tagus fw-semibold d-block ms-5"
+                        >
+                            <img
+                                src="assets/img/icon/facebook.png"
+                                alt="facebook"
+                            />
+                            Login with Facebook
+                        </button>-->
+                    </div>
+                    <!--<div class="or text-center position-relative">
+                        <span class="fw-semibold fs-16">or</span>
+                    </div>-->
+                    <div class="bg-white border-radius pt-20 ps-20 pe-20">
+                        <div class="tagus-form-group without-icon">
+                            <label class="d-block mb-12 fw-semibold gray-color"
+                                >Email Address <span>*</span></label
+                            >
+                            <mat-form-field appearance="fill">
+                                <mat-label>Enter email address</mat-label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    name="email"
+                                    [(ngModel)]="form.email"
+                                    required
+                                    #email="ngModel"
+                                    matInput
+                                />
+                            </mat-form-field>
+                        </div>
+                        <div class="tagus-form-group without-icon">
+                            <label class="d-block mb-12 fw-semibold gray-color"
+                                >Password <span>*</span></label
+                            >
+                            <mat-form-field appearance="fill">
+                                <mat-label>Enter your password</mat-label>
+                                <input
+                                    matInput
+                                    [type]="hide ? 'password' : 'text'"
+                                    type="password"
+                                    class="form-control"
+                                    name="password"
+                                    [(ngModel)]="form.password"
+                                    required
+                                    minlength="6"
+                                    #password="ngModel"
+                                />
+                                <button
+                                    mat-icon-button
+                                    matSuffix
+                                    (click)="hide = !hide"
+                                    [attr.aria-label]="'Hide password'"
+                                    [attr.aria-pressed]="hide"
+                                >
+                                    <mat-icon>{{
+                                        hide ? "visibility_off" : "visibility"
+                                    }}</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div
+                        class="d-flex info align-items-center justify-content-space-between"
+                    >
+                        <mat-checkbox class="gray-color"
+                            >Remember me</mat-checkbox
+                        >
+                        <a
+                            routerLink="/authentication/forgot-password"
+                            class="d-inline-block main-color fw-medium"
+                            >Forgot your password?</a
+                        >
+                    </div>
+                    <button mat-flat-button class="tagus d-block fw-semibold">
+                        Log In
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<div class="header baground-vers py-7 py-lg-8">
+    <div class="container">
+        <div class="header-body text-center mb-7">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-6">
+                    <h1 class="text-white">Connexion</h1>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-7">
+                    <div class="card shadow border-0">
+                        <div class="card-body px-lg-5 py-lg-5">
+                            <div class="text-center text-muted mb-4">
+                                <small> Connectez-vous</small>
+                            </div>
+                            <form
+                                role="form"
+                                *ngIf="!isLoggedIn"
+                                name="form"
+                                (ngSubmit)="f.form.valid && onSubmit()"
+                                #f="ngForm"
+                                novalidate
+                            >
+                                <div class="form-group mb-3">
+                                    <div
+                                        class="input-group input-group-alternative"
+                                    >
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                ><i class="ni ni-email-83"></i
+                                            ></span>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            placeholder="Email"
+                                            type="email"
+                                            name="email"
+                                            [(ngModel)]="form.email"
+                                            required
+                                            #email="ngModel"
+                                        />
+                                        <div
+                                            class="alert alert-danger"
+                                            role="alert"
+                                            *ngIf="f.submitted && email.invalid"
+                                        >
+                                            Username is required!
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div
+                                        class="input-group input-group-alternative"
+                                    >
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"
+                                                ><i
+                                                    class="ni ni-lock-circle-open"
+                                                ></i
+                                            ></span>
+                                        </div>
+                                        <input
+                                            class="form-control"
+                                            placeholder="Password"
+                                            type="password"
+                                            name="password"
+                                            [(ngModel)]="form.password"
+                                            required
+                                            minlength="6"
+                                            #password="ngModel"
+                                        />
+                                        <div
+                                            class="alert alert-danger"
+                                            role="alert"
+                                            *ngIf="
+                                                f.submitted && password.invalid
+                                            "
+                                        >
+                                            <div
+                                                *ngIf="password.errors.required"
+                                            >
+                                                Password is required
+                                            </div>
+                                            <div
+                                                *ngIf="
+                                                    password.errors.minlength
+                                                "
+                                            >
+                                                Password must be at least 6
+                                                characters
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    class="custom-control custom-control-alternative custom-checkbox"
+                                >
+                                    <input
+                                        class="custom-control-input"
+                                        id=" customCheckLogin"
+                                        type="checkbox"
+                                    />
+                                    <label
+                                        class="custom-control-label"
+                                        for=" customCheckLogin"
+                                    >
+                                        <span class="text-muted"
+                                            >Remember me</span
+                                        >
+                                    </label>
+                                </div>
+                                <div class="text-center">
+                                    <button
+                                        type="submit"
+                                        class="btn btn-info my-4"
+                                    >
+                                        Sign in
+                                    </button>
+                                </div>
+                                <div class="form-group">
+                                    <div
+                                        class="alert alert-danger"
+                                        role="alert"
+                                        *ngIf="f.submitted && isLoginFailed"
+                                    >
+                                        Login failed: {{ errorMessage }}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <a href="javascript:void(0)" class="text-light"
+                                ><small>Modifier mot de passe?</small></a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>-->
