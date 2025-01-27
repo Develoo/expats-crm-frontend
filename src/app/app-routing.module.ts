@@ -303,6 +303,7 @@ const routes: Routes = [
         canActivate: [AdminGuard] },
     { path: 'addnumurgence', component: AddNumUrgenceComponent },
     { path: 'edit-num-urgence/:id', component: EditNumUrgencComponent },
+    /*test*/
     {
         path: 'listnotific',
         component: ListNotificationComponent,
